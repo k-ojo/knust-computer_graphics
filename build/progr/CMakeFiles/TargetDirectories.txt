@@ -1,0 +1,3 @@
+/home/k-ojo/knust-computer_graphics/build/progr/CMakeFiles/my_program.dir
+/home/k-ojo/knust-computer_graphics/build/progr/CMakeFiles/edit_cache.dir
+/home/k-ojo/knust-computer_graphics/build/progr/CMakeFiles/rebuild_cache.dir
