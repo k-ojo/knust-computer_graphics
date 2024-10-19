@@ -1,1 +1,0 @@
-/usr/bin/c++ CMakeFiles/my_program.dir/ex.cpp.o -o progr/my_program  /usr/lib/x86_64-linux-gnu/libglfw.so.3.3 
