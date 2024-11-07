@@ -1,16 +1,42 @@
-This is my final exams in in computer graphics at KNUST. The project consist of:
+# Computer Graphics Project
 
-1) glad.c (added to files to be compiled
-2) main.cpp - contains the main function 
-3)shaders.cpp - definition of methods belonging to the Shader class
-4)translator.cpp - translation helper file
-5)fragment.fs- fragment text file (GLSL)
-6)vertex.vert- vertext shader text file (GLSL)
-7)Callback_helpers.cpp
-8) CMakeLists.txt - makefile for compiling code
+This project is part of the final examination in Computer Graphics at KNUST, demonstrating proficiency in OpenGL programming, shader management, and graphical transformations.
 
-LIBRARIES
-GLFW
-glad
-glm
+## Project Structure
 
+### Source Files
+
+- **`glad.c`** - Adds OpenGL Loader (GLAD) to the project.
+- **`main.cpp`** - Contains the main function to initialize the application and handle the rendering loop.
+- **`shaders.cpp`** - Defines methods for the `Shader` class, handling shader compilation and linking.
+- **`translator.cpp`** - Helper file for translating graphical data.
+- **`Callback_helpers.cpp`** - Provides helper functions for handling user input and callbacks.
+
+### Shader Files (GLSL)
+
+- **`fragment.fs`** - GLSL fragment shader file, defining pixel-level operations.
+- **`vertex.vert`** - GLSL vertex shader file, defining vertex transformations.
+
+### Build Configuration
+
+- **`CMakeLists.txt`** - CMake configuration file for compiling the project.
+
+## Libraries Used
+
+- **GLFW** - Handles window creation and input.
+- **GLAD** - Manages OpenGL function pointers.
+- **GLM** - Provides a mathematics library for 3D graphics (vectors, matrices, transformations).
+
+## Building the Project
+
+To compile the project, follow these steps:
+
+1. Ensure CMake, GLFW, GLAD, and GLM are installed on your system.
+2. Clone the repository and navigate to the project folder.
+3. Run the following commands:
+
+   ```bash
+   mkdir build
+   cd build
+   cmake ..
+   make
