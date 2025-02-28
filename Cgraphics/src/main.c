@@ -1,10 +1,10 @@
 #include "../include/main.h"
 
 float vertices[] = {
-    -0.9f, -0.5f, 0.0f, // left
-    -0.0f, -0.5f, 0.0f, // right
-    -0.45f, 0.5f, 0.0f, // bottom left
-    -0.5f, 0.5f, 0.0f   // top left
+    // positions         // colors
+     0.5f, -0.5f, 0.0f,  1.0f, 0.0f, 0.0f,   // bottom right
+    -0.5f, -0.5f, 0.0f,  0.0f, 1.0f, 0.0f,   // bottom left
+     0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f    // top 
 };
 
 unsigned int indices[] = {
@@ -23,9 +23,9 @@ int main(void)
     int success;
     char infoLog[512];
 
-    float timeValue, greenValue = 0;
-    int vertexColorLocation;
-    float pixel[] = {0.0f, greenValue, 0.0f, 1.0f};
+    //float timeValue, greenValue = 0;
+    //int vertexColorLocation;
+    //float pixel[] = {0.0f, greenValue, 0.0f, 1.0f};
 
 
     // 1. intialize opengl
@@ -120,8 +120,11 @@ int main(void)
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
     // 4. then set the vertex attributes pointers
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)0);
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void *)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE); //wireframe
 
@@ -131,13 +134,14 @@ int main(void)
         glClearColor(0.18f, 0.18f, 0.18f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        timeValue = glfwGetTime();
+        /*timeValue = glfwGetTime();
         greenValue = (sin(timeValue) / 2.0f) + 0.5f;
         vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
 
         glUseProgram(shaderProgram);
         pixel[1] = greenValue;
-        glUniform4fv(vertexColorLocation, 1, pixel);
+        glUniform4fv(vertexColorLocation, 1, pixel);*/
+        glUseProgram(shaderProgram);
         
         glBindVertexArray(VAO);
 
