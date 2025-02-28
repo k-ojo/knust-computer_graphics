@@ -1,8 +1,8 @@
 #include "../include/main.h"
 
 float vertices[] = {
-    -0.9f, -0.5f, 0.0f,  // left 
-    -0.0f, -0.5f, 0.0f,  // right
+    -0.9f, -0.5f, 0.0f, // left
+    -0.0f, -0.5f, 0.0f, // right
     -0.45f, 0.5f, 0.0f, // bottom left
     -0.5f, 0.5f, 0.0f   // top left
 };
@@ -14,7 +14,7 @@ unsigned int indices[] = {
 };
 
 int main(void)
-{        
+{
     unsigned int vertexShader, fragmentShader, shaderProgram;
     unsigned int VBO, EBO;
     unsigned int VAO;
@@ -22,6 +22,11 @@ int main(void)
     char *vs, *fs;
     int success;
     char infoLog[512];
+
+    float timeValue, greenValue = 0;
+    int vertexColorLocation;
+    float pixel[] = {0.0f, greenValue, 0.0f, 1.0f};
+
 
     // 1. intialize opengl
     glfwSetErrorCallback(error_callback);
@@ -53,12 +58,12 @@ int main(void)
         return (-1);
     }
 
-    //beginning of actual graphics
+    // beginning of actual graphics
     vs = read_shader("/home/eleven/knust-computer_graphics/Cgraphics/shaders/vertex.vs");
     fs = read_shader("/home/eleven/knust-computer_graphics/Cgraphics/shaders/fragment.fs");
 
-    //vs = (const char *)_vs;
-    //fs = (const char *)_fs;
+    // vs = (const char *)_vs;
+    // fs = (const char *)_fs;
 
     vertexShader = glCreateShader(GL_VERTEX_SHADER);
     _vs = vs;
@@ -86,7 +91,7 @@ int main(void)
         printf("ERROR::SHADER::fragment::COMPILATION_FAILED\n%s\n", infoLog);
     }
 
-    //link sharder programs 
+    // link sharder programs
     shaderProgram = glCreateProgram();
     glAttachShader(shaderProgram, vertexShader);
     glAttachShader(shaderProgram, fragmentShader);
@@ -98,14 +103,14 @@ int main(void)
         printf("ERROR::SHADER::LINKING_FAILED\n%s\n", infoLog);
     }
 
-    //clean up memory
+    // clean up memory
     glDeleteShader(vertexShader);
     glDeleteShader(fragmentShader);
 
-    //binding the vertices to vertix objects on 
+    // binding the vertices to vertix objects on
     glGenVertexArrays(1, &VAO); // vertice array object
-    glGenBuffers(1, &VBO);     //vertice buffer object
-    glGenBuffers(1, &EBO);      //element buffer object
+    glGenBuffers(1, &VBO);      // vertice buffer object
+    glGenBuffers(1, &EBO);      // element buffer object
 
     glBindVertexArray(VAO);
     // 2. copy our vertices array in a vertex buffer for OpenGL to use
@@ -122,12 +127,22 @@ int main(void)
 
     while (!glfwWindowShouldClose(window))
     {
+
         glClearColor(0.18f, 0.18f, 0.18f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        timeValue = glfwGetTime();
+        greenValue = (sin(timeValue) / 2.0f) + 0.5f;
+        vertexColorLocation = glGetUniformLocation(shaderProgram, "ourColor");
+
         glUseProgram(shaderProgram);
+        pixel[1] = greenValue;
+        glUniform4fv(vertexColorLocation, 1, pixel);
+        
         glBindVertexArray(VAO);
-        //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+
+        // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        
         glDrawArrays(GL_TRIANGLES, 0, 3);
         glBindVertexArray(0);
 
@@ -139,6 +154,6 @@ int main(void)
 
     glfwDestroyWindow(window);
     glfwTerminate();
-    
+
     return (0);
 }
